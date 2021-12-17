@@ -3,7 +3,9 @@
   "compilerOptions": {
     "baseUrl": "src",
     "noEmit": true,
-    "suppressImplicitAnyIndexErrors": true
+    "suppressImplicitAnyIndexErrors": true,
+    "module": "CommonJS",
+    "target": "ES6"
   },
   "include": [
     "src/**/*.ts",
