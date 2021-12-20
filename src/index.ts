@@ -130,6 +130,8 @@ const run = async () => {
       checkIntervalInMilliseconds: CHECK_INTERVAL_IN_MS,
     });
 
+    assert(!!status, `no status available`);
+
     const targetUrl = status.target_url;
 
     if (!targetUrl) {
