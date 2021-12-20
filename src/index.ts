@@ -1,5 +1,5 @@
 import { setFailed, getInput, setOutput } from '@actions/core';
-import github from '@actions/github';
+import { getOctokit, context } from '@actions/github';
 import axios from 'axios';
 import { assert } from 'assert-ts';
 
@@ -42,7 +42,7 @@ const waitForStatus = async ({
   allowInactive: boolean;
   checkIntervalInMilliseconds: number;
 }) => {
-  const octokit = github.getOctokit(token);
+  const octokit = getOctokit(token);
   const iterations = maxTimeout / (checkIntervalInMilliseconds / 1000);
 
   for (let i = 0; i < iterations; i++) {
@@ -88,12 +88,11 @@ const run = async () => {
 
     assert(!!GITHUB_TOKEN, 'Required field `token` was not provided');
 
-    const octokit = github.getOctokit(GITHUB_TOKEN);
+    const octokit = getOctokit(GITHUB_TOKEN);
 
-    const context = github.context;
     const owner = context.repo.owner;
     const repo = context.repo.repo;
-    const PR_NUMBER = github?.context?.payload?.pull_request?.number;
+    const PR_NUMBER = context?.payload?.pull_request?.number;
 
     assert(!!PR_NUMBER, 'No pull request number was found');
 
